@@ -15,17 +15,17 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
 
   final List<Map<String, String>> pageArr = [
     {
-      "title": "One app, All home solutions! 🔧🛠️",
+      "title": "Exceptional Service \nExceptional Care ",
       "sub_title": "",
-      "img": "assets/img/c1.png"
+      "img": "assets/img/onboard22.png"
     },
     {
-      "title": "Anytime, Anywhere",
+      "title": "Book in Seconds\n Get Help in Minutes",
       "sub_title": "",
-      "img": "assets/img/baby2.jpeg"
+      "img": "assets/img/baby3.png"
     },
     {
-      "title": "Relax, we’ll handle the mess!",
+      "title": "Excellence Delivered \n At Your Doorstep",
       "sub_title": " ",
       "img": "assets/img/p1.png"
     },
@@ -35,7 +35,6 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
   void initState() {
     super.initState();
     controller = PageController();
-    // Removed the listener here
   }
 
   @override

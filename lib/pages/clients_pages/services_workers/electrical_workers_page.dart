@@ -52,8 +52,8 @@ class _ElectricalWorkersPageState extends State<ElectricalWorkersPage> {
           await _repo.fetchWorkersForService('Electrical');
 
       final imagePaths = [
-        'assets/img/pw1.png',
-        'assets/img/pw2.png',
+        'assets/img/m6.jpeg',
+        'assets/img/m4.jpeg',
         'assets/img/pw3.png',
         'assets/img/pw4.jpeg',
         'assets/img/pw5.png',

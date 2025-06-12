@@ -125,7 +125,7 @@ class _PlumbingScreenState extends State<PlumbingScreen> {
                     height: screenHeight * 0.4,
                     width: double.infinity,
                     child: Image.asset(
-                      'assets/img/plumb.jpg',
+                      'assets/img/plumbing.jpeg',
                       fit: BoxFit.cover,
                     ),
                   ),

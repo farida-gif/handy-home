@@ -33,6 +33,11 @@ class _WorkerSignupPageState extends State<WorkerSignupPage> {
 
   bool _isPasswordVisible = false;
   bool _isConfirmPasswordVisible = false;
+final supportedLocales = const [
+    Locale('en', 'US'),
+    Locale('fr', 'FR'),
+    Locale('ar', 'DZ'),
+  ];
 
   final List<String> regionOptions = [
     'New Cairo'.tr, 'Maadii'.tr, 'Zamalek'.tr, 'Zayed'.tr, 'Nasr City'.tr, 'Heliopolis'.tr, 'October City'.tr,
@@ -48,21 +53,7 @@ class _WorkerSignupPageState extends State<WorkerSignupPage> {
      'Friday'.tr, 'Saturday'.tr, 'Sunday'.tr,
   ];
 
-  final List<Map<String, String>> languages = [
-    {'name': 'English', 'code': 'en'},
-    {'name': 'Français', 'code': 'fr'},
-    {'name': 'العربية', 'code': 'ar'},
-  ];
-
-//change language
-  String selectedLanguage = Get.locale?.languageCode ?? 'en';
-
-  void changeLanguage(String code) {
-    Locale locale = Locale(code);
-    Get.updateLocale(locale);
-    setState(() => selectedLanguage = code);
-  }
-
+ 
   void showInlineError(String message) {
     if (!mounted) return;
     ScaffoldMessenger.of(context).showSnackBar(
@@ -128,6 +119,15 @@ class _WorkerSignupPageState extends State<WorkerSignupPage> {
 
  @override
 Widget build(BuildContext context) {
+   Locale selectedLocale = supportedLocales.first;
+    for (final locale in supportedLocales) {
+      if (locale.languageCode == Get.locale?.languageCode &&
+          locale.countryCode == Get.locale?.countryCode) {
+        selectedLocale = locale;
+        break;
+      }
+    }
+
   return Scaffold(
     backgroundColor: Theme.of(context).colorScheme.surface,
     body: SingleChildScrollView(
@@ -137,6 +137,31 @@ Widget build(BuildContext context) {
         child: Column(
           children: [
             const SizedBox(height: 40),
+            // Language Dropdown
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  DropdownButton<Locale>(
+                    value: selectedLocale,
+                    icon: const Icon(Icons.language),
+                    onChanged: (Locale? locale) {
+                      if (locale != null) Get.updateLocale(locale);
+                    },
+                    items: supportedLocales.map((locale) {
+                      final label = switch (locale.languageCode) {
+                        'en' => 'English',
+                        'fr' => 'Français',
+                        'ar' => 'العربية',
+                        _ => locale.languageCode,
+                      };
+                      return DropdownMenuItem(
+                        value: locale,
+                        child: Text(label),
+                      );
+                    }).toList(),
+                  ),
+                ],
+              ),
   //logo img
             Image.asset("assets/img/logo2.png", width: 400, height: 250),
             Container(
@@ -155,21 +180,7 @@ Widget build(BuildContext context) {
               ),
             ),
             const SizedBox(height: 16),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                DropdownButton<String>(
-                  value: selectedLanguage,
-                  onChanged: (value) {
-                    if (value != null) changeLanguage(value);
-                  },
-                  items: languages.map((lang) => DropdownMenuItem<String>(
-                        value: lang['code'],
-                        child: Text(lang['name']!),
-                      )).toList(),
-                ),
-              ],
-            ),
+           
   //fields
             RoundTextField(controller: fullNameController, hintText: 'full_name'.tr),
             const SizedBox(height: 12),

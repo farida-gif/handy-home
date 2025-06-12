@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_credit_card/flutter_credit_card.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-//import 'package:intl/intl.dart'; // For date formatting
 import 'package:handy_home2/pages/clients_pages/payments/worker_calender_invoice.dart';
 
 class WorkerCalenderCreditCardPage extends StatefulWidget {
@@ -38,7 +37,8 @@ class WorkerCalenderCreditCardPage extends StatefulWidget {
       _WorkerCalenderCreditCardPageState();
 }
 
-class _WorkerCalenderCreditCardPageState extends State<WorkerCalenderCreditCardPage> {
+class _WorkerCalenderCreditCardPageState
+    extends State<WorkerCalenderCreditCardPage> {
   String cardNumber = '';
   String expiryDate = '';
   String cardHolderName = '';
@@ -125,7 +125,8 @@ class _WorkerCalenderCreditCardPageState extends State<WorkerCalenderCreditCardP
       try {
         final supabase = Supabase.instance.client;
 
-        // Insert into 'payments' table
+        final totalAmount = widget.depositAmount / 0.2;
+
         final response = await supabase.from('payments').insert({
           'client_name': widget.clientName,
           'client_phone': widget.clientPhone,
@@ -133,17 +134,17 @@ class _WorkerCalenderCreditCardPageState extends State<WorkerCalenderCreditCardP
           'client_address': widget.clientAddress,
           'service_category': widget.serviceCategory,
           'deposit_amount': widget.depositAmount,
-          'total_amount': widget.depositAmount / 0.2,
+          'total_amount': totalAmount,
           'card_holder_name': cardHolderName,
           'card_number_last4': cardNumber.replaceAll(' ', '').substring(cardNumber.length - 4),
           'expiry_date': expiryDate,
           'payment_date': DateTime.now().toIso8601String(),
           'status': 'paid',
+          'worker_name': widget.workerName,
         }).select();
 
         // ignore: unnecessary_null_comparison
         if (response != null) {
-          // Payment successful
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
@@ -157,7 +158,7 @@ class _WorkerCalenderCreditCardPageState extends State<WorkerCalenderCreditCardP
                 date: widget.date,
                 time: widget.time,
                 estimatedTime: Duration(hours: widget.estimatedTime),
-                totalPrice: widget.depositAmount / 0.2,
+                totalPrice: totalAmount,
                 deposit: widget.depositAmount,
               ),
             ),

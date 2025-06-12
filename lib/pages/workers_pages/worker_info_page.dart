@@ -1,8 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-//import 'package:get/get_connect/http/src/utils/utils.dart';
-//import 'package:handy_home2/models/workers.dart';
 import 'package:handy_home2/pages/workers_pages/worker_home_page.dart';
 
 class WorkerInfoPage extends StatelessWidget {
@@ -16,7 +14,8 @@ class WorkerInfoPage extends StatelessWidget {
   final List<String> availableDays;
   final String startTime;
   final String endTime;
-  final String? userImageUrl;
+  final String? userImageUrl; // For uploaded image from gallery/camera
+  final String? avatarPath;   // For asset avatar image
 
   const WorkerInfoPage({
     super.key,
@@ -30,7 +29,8 @@ class WorkerInfoPage extends StatelessWidget {
     required this.availableDays,
     required this.startTime,
     required this.endTime,
-    this.userImageUrl, 
+    this.userImageUrl,
+    this.avatarPath,
   });
 
   @override
@@ -39,7 +39,7 @@ class WorkerInfoPage extends StatelessWidget {
       backgroundColor: Theme.of(context).colorScheme.surface,
       body: Column(
         children: [
-  // Avatar and Name
+          // Avatar and Name Section
           Container(
             width: double.infinity,
             padding: const EdgeInsets.symmetric(vertical: 40),
@@ -57,20 +57,25 @@ class WorkerInfoPage extends StatelessWidget {
                   backgroundColor: Colors.white,
                   backgroundImage: userImageUrl != null
                       ? FileImage(File(userImageUrl!))
-                      : null,
-                  child: userImageUrl == null
-                      ? Icon(Icons.person,
+                      : avatarPath != null
+                          ? AssetImage(avatarPath!) as ImageProvider
+                          : null,
+                  child: userImageUrl == null && avatarPath == null
+                      ? Icon(
+                          Icons.person,
                           size: 50,
-                          color: Theme.of(context).colorScheme.primary)
+                          color: Theme.of(context).colorScheme.primary,
+                        )
                       : null,
                 ),
                 const SizedBox(height: 10),
                 Text(
                   name,
                   style: const TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white),
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
                 ),
                 Text(
                   email,
@@ -82,7 +87,7 @@ class WorkerInfoPage extends StatelessWidget {
 
           const SizedBox(height: 20),
 
-  // Fields List
+          // Fields List
           Expanded(
             child: ListView(
               padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -94,40 +99,31 @@ class WorkerInfoPage extends StatelessWidget {
                     context,
                     Icons.location_on,
                     'region'.tr,
-                    region.isNotEmpty
-                        ? region.join(', ')
-                        : 'no_region_selected'.tr),
+                    region.isNotEmpty ? region.join(', ') : 'no_region_selected'.tr),
                 _buildInfoCard(
                     context,
                     Icons.work,
                     'jobs'.tr,
-                    selectedJobs.isNotEmpty
-                        ? selectedJobs.join(', ')
-                        : 'no_jobs_selected'.tr),
+                    selectedJobs.isNotEmpty ? selectedJobs.join(', ') : 'no_jobs_selected'.tr),
                 _buildInfoCard(
                     context,
                     Icons.today,
                     'available_days'.tr,
-                    availableDays.isNotEmpty
-                        ? availableDays.join(', ')
-                        : 'no_days_selected'.tr),
-                _buildInfoCard(context, Icons.schedule, 'working_hours'.tr,
-                    '$startTime - $endTime'),
+                    availableDays.isNotEmpty ? availableDays.join(', ') : 'no_days_selected'.tr),
+                _buildInfoCard(context, Icons.schedule, 'working_hours'.tr, '$startTime - $endTime'),
                 _buildInfoCard(context, Icons.file_present, 'cv_uploaded'.tr,
                     isCVUploaded ? 'yes'.tr : 'no'.tr),
 
                 const SizedBox(height: 30),
 
-                // Done Button with fallback
+                // Done Button
                 ElevatedButton.icon(
                   onPressed: () {
                     try {
                       Get.offAll(() => const WorkerHomePage());
                     } catch (_) {
                       Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(
-                          builder: (_) => const WorkerHomePage(),
-                        ),
+                        MaterialPageRoute(builder: (_) => const WorkerHomePage()),
                       );
                     }
                   },
@@ -150,9 +146,13 @@ class WorkerInfoPage extends StatelessWidget {
     );
   }
 
-  // Reusable Card Widget
+  // Reusable Info Card Widget
   Widget _buildInfoCard(
-      BuildContext context, IconData icon, String label, String value) {
+    BuildContext context,
+    IconData icon,
+    String label,
+    String value,
+  ) {
     return Card(
       margin: const EdgeInsets.only(bottom: 12),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),

@@ -51,7 +51,7 @@ class _PaintingWorkersPageState extends State<PaintingWorkersPage> {
 
       final imagePaths = [
         'assets/img/pw1.png',
-        'assets/img/pw2.png',
+        'assets/img/m2.jpeg',
         'assets/img/pw3.png',
         'assets/img/pw4.jpeg',
         'assets/img/pw5.png',

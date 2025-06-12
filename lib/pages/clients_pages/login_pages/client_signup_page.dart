@@ -128,6 +128,14 @@ final supportedLocales = const [
 
   @override
   Widget build(BuildContext context) {
+    Locale selectedLocale = supportedLocales.first;
+    for (final locale in supportedLocales) {
+      if (locale.languageCode == Get.locale?.languageCode &&
+          locale.countryCode == Get.locale?.countryCode) {
+        selectedLocale = locale;
+        break;
+      }
+    }
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
       body: SingleChildScrollView(

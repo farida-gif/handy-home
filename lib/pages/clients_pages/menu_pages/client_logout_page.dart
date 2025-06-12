@@ -37,12 +37,12 @@ class _LogoutPageState extends State<LogoutPage> {
             .single();
 
         setState(() {
-          username = response['name'] ?? 'Client Name';
+          username = response['name'] ?? 'client_name'.tr;
         });
       } catch (e) {
         print('Failed to fetch name: $e');
         setState(() {
-          username = 'Client Name';
+          username = 'client_name'.tr;
         });
       }
     }
@@ -81,8 +81,18 @@ class _LogoutPageState extends State<LogoutPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Logout")),
-      body: SingleChildScrollView(
+appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        title: Text(
+          "logout_page_title".tr,
+          style: TextStyle(
+              fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
+        ),
+        leading: IconButton(
+          onPressed: () => Navigator.pop(context),
+          icon: const Icon(Icons.arrow_back, color: Colors.white, size: 30),
+        ),
+      ),      body: SingleChildScrollView(
         padding: const EdgeInsets.all(20.0),
         child: Column(
           children: [
@@ -98,7 +108,7 @@ class _LogoutPageState extends State<LogoutPage> {
             TextField(
               readOnly: true,
               decoration: InputDecoration(
-                labelText: "Username",
+                labelText: "username_label".tr,
                 border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
                 prefixIcon: const Icon(Icons.person),
               ),
@@ -110,7 +120,7 @@ class _LogoutPageState extends State<LogoutPage> {
             TextField(
               readOnly: true,
               decoration: InputDecoration(
-                labelText: "Email",
+                labelText: "email_label".tr,
                 border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
                 prefixIcon: const Icon(Icons.email),
               ),
@@ -128,9 +138,9 @@ class _LogoutPageState extends State<LogoutPage> {
                   borderRadius: BorderRadius.circular(10),
                 ),
               ),
-              child: const Text(
-                "Logout",
-                style: TextStyle(
+              child: Text(
+                "logout_button".tr,
+                style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
                   color: Colors.white,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:handy_home2/repo/workers_repo.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:get/get.dart';
 
 class FeedbackPage extends StatefulWidget {
   const FeedbackPage({super.key});
@@ -13,7 +14,8 @@ class _FeedbackPageState extends State<FeedbackPage> {
   final WorkersRepo _workersRepo = WorkersRepo.instance;
   final SupabaseClient _client = Supabase.instance.client;
 
-  final List<String> serviceCategories = ['Plumbing', 'Cleaning', 'Carpentry', 'Electrical'];
+  final List<String> serviceCategories = ['Plumbing'.tr, 'Electrical'.tr, 'Cleaning'.tr,
+   'Carpentry'.tr, 'Painting', 'Babysitting','Apartment Finishing' ];
   String? selectedService;
   Map<String, String> workerNameToId = {};
   String? selectedWorkerName;
@@ -23,11 +25,11 @@ class _FeedbackPageState extends State<FeedbackPage> {
   final List<String> emojis = ['😠', '😕', '🙂', '😃', '🤩'];
 
   final Map<int, List<String>> feedbackSuggestions = {
-    0: ['Very rude', 'Late arrival', 'Unprofessional'],
-    1: ['Could be better', 'Slow response', 'Needs improvement'],
-    2: ['Average service', 'Okay overall'],
-    3: ['Great service', 'On time', 'Friendly'],
-    4: ['Excellent!', 'Very professional', 'Highly recommend']
+    0: ['very_rude'.tr, 'late_arrival'.tr, 'unprofessional'.tr],
+    1: ['could_be_better'.tr, 'slow_response'.tr, 'needs_improvement'.tr],
+    2: ['average_service'.tr, 'okay_overall'.tr],
+    3: ['great_service'.tr, 'on_time'.tr, 'friendly'.tr],
+    4: ['excellent_service'.tr, 'very_professional'.tr, 'highly_recommend'.tr]
   };
 
   List<String> selectedTags = [];
@@ -55,7 +57,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
       });
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Failed to load workers: $e")),
+        SnackBar(content: Text("${'failed_load_workers'.tr} $e")),
       );
     }
   }
@@ -65,7 +67,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
         selectedWorkerName == null ||
         selectedEmojiIndex == null) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Please complete all required fields")),
+        SnackBar(content: Text("complete_all_fields".tr)),
       );
       return;
     }
@@ -83,7 +85,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
       });
 
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Feedback submitted successfully")),
+        SnackBar(content: Text("feedback_submitted".tr)),
       );
 
       setState(() {
@@ -96,7 +98,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
       });
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Error submitting feedback: $e")),
+        SnackBar(content: Text("${'error_submitting_feedback'.tr} $e")),
       );
     }
   }
@@ -107,7 +109,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Leave Feedback"),
+        title: Text("leave_feedback".tr),
         backgroundColor: theme.colorScheme.primary,
         foregroundColor: Colors.white,
       ),
@@ -115,12 +117,12 @@ class _FeedbackPageState extends State<FeedbackPage> {
         padding: const EdgeInsets.all(20),
         child: ListView(
           children: [
-            const Text("Select Service",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+            Text("select_service".tr,
+                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
             DropdownButton<String>(
               isExpanded: true,
               value: selectedService,
-              hint: const Text("Choose a service"),
+              hint: Text("choose_service".tr),
               items: serviceCategories
                   .map((s) => DropdownMenuItem(value: s, child: Text(s)))
                   .toList(),
@@ -133,12 +135,12 @@ class _FeedbackPageState extends State<FeedbackPage> {
             ),
 
             const SizedBox(height: 18),
-            const Text("Select Worker",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+            Text("select_worker".tr,
+                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
             DropdownButton<String>(
               isExpanded: true,
               value: selectedWorkerName,
-              hint: const Text("Choose a worker"),
+              hint: Text("choose_worker_feedback".tr),
               items: workerNameToId.keys
                   .map((name) =>
                       DropdownMenuItem<String>(value: name, child: Text(name)))
@@ -151,8 +153,8 @@ class _FeedbackPageState extends State<FeedbackPage> {
             ),
 
             const SizedBox(height: 25),
-            const Text("How was the service?",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+            Text("how_was_service".tr,
+                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: List.generate(emojis.length, (index) {
@@ -193,14 +195,14 @@ class _FeedbackPageState extends State<FeedbackPage> {
               ),
 
             const SizedBox(height: 25),
-            const Text("Write Review",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+            Text("write_review".tr,
+                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
             TextField(
               controller: _reviewController,
               maxLines: 4,
-              decoration: const InputDecoration(
-                hintText: "Type your feedback...",
-                border: OutlineInputBorder(),
+              decoration: InputDecoration(
+                hintText: "type_feedback".tr,
+                border: const OutlineInputBorder(),
               ),
             ),
 
@@ -209,7 +211,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
               child: ElevatedButton.icon(
                 onPressed: submitFeedback,
                 icon: const Icon(Icons.send),
-                label: const Text("Submit Feedback"),
+                label: Text("submit_feedback".tr),
               ),
             ),
           ],

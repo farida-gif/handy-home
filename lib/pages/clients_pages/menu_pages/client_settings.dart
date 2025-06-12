@@ -1,9 +1,7 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:handy_home2/themes/theme_provider.dart';
 import 'package:provider/provider.dart';
-//import 'package:provider/provider.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
@@ -13,19 +11,39 @@ class SettingsPage extends StatelessWidget {
     final theme = Theme.of(context);
     final themeProvider = Provider.of<ThemeProvider>(context, listen: false);
 
+    // Available locales for consistency
+    const supportedLocales = [
+      Locale('en', 'US'),
+      Locale('ar', 'DZ'),
+      Locale('fr', 'FR'),
+    ];
+
+    // Get current locale or default to English
+    final currentLocale = Get.locale ?? const Locale('en', 'US');
+    
+    // Find matching locale from supported list
+    Locale selectedLocale = supportedLocales.first;
+    for (final locale in supportedLocales) {
+      if (locale.languageCode == currentLocale.languageCode) {
+        selectedLocale = locale;
+        break;
+      }
+    }
+
     return Scaffold(
-      appBar: AppBar(
-        title: Text('settings'.tr, 
-        style: TextStyle(
-          color: Theme.of(context).colorScheme.surface),
-                ),        
-      backgroundColor: theme.colorScheme.primary,
-      ),
       backgroundColor: theme.colorScheme.surface,
+      appBar: AppBar(
+        title: Text("settings".tr, style: TextStyle(
+          fontWeight: FontWeight.bold,
+          color: Colors.white,
+        )),
+        backgroundColor: theme.colorScheme.primary,
+        foregroundColor:  Theme.of(context).colorScheme.surface,
+      ),
+   
       body: ListView(
         padding: const EdgeInsets.all(20),
         children: [
-
           // Dark Mode Toggle
           Container(
             padding: const EdgeInsets.all(20),
@@ -76,7 +94,7 @@ class SettingsPage extends StatelessWidget {
                   ),
                 ),
                 DropdownButton<Locale>(
-                  value: Get.locale,
+                  value: selectedLocale,
                   icon: const Icon(Icons.arrow_drop_down),
                   underline: Container(height: 0),
                   onChanged: (Locale? newLocale) {
@@ -84,20 +102,18 @@ class SettingsPage extends StatelessWidget {
                       Get.updateLocale(newLocale);
                     }
                   },
-                  items: const [
-                    DropdownMenuItem(
-                      value: Locale('en'),
-                      child: Text('English'),
-                    ),
-                    DropdownMenuItem(
-                      value: Locale('ar'),
-                      child: Text('العربية'),
-                    ),
-                    DropdownMenuItem(
-                      value: Locale('fr'),
-                      child: Text('Français'),
-                    ),
-                  ],
+                  items: supportedLocales.map((locale) {
+                    final label = switch (locale.languageCode) {
+                      'en' => 'English',
+                      'ar' => 'العربية',
+                      'fr' => 'Français',
+                      _ => locale.languageCode,
+                    };
+                    return DropdownMenuItem(
+                      value: locale,
+                      child: Text(label),
+                    );
+                  }).toList(),
                 ),
               ],
             ),

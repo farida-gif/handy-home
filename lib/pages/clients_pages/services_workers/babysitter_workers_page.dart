@@ -50,10 +50,12 @@ class _BabysitterWorkersPageState extends State<BabysitterWorkersPage> {
           await _repo.fetchWorkersForService('Babysitting');
 
       final imagePaths = [
-        'assets/img/bs1.png',
+        'assets/img/f3.jpeg',
         'assets/img/bs2.png',
         'assets/img/bs3.png',
         'assets/img/bs4.png',
+        'assets/img/bs11.png',
+
       ];
 
       allWorkers = workerData.asMap().entries.map((entry) {

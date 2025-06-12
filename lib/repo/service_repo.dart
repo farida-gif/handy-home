@@ -41,7 +41,7 @@ class ServiceRepo {
     }
   }
 
-  // ✅ Corrected: Fetch price for a service type
+  // Fetch price for a service type
   Future<double> fetchServicePrice(String serviceName) async {
     try {
       final Map<String, dynamic>? response = await _client

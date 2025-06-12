@@ -97,7 +97,7 @@ class WorkersRepo extends GetxController {
     required int experienceYears,
     Uint8List? profileImageBytes,
     Uint8List? nationalIdImageBytes,
-    File? cvFile,
+    File? cvFile, String? selectedAvatarPath,
   }) async {
     try {
       final userId = _client.auth.currentUser?.id;

@@ -21,7 +21,6 @@ class _ServicesPageState extends State<ServicesPage> {
   final TextEditingController _searchController = TextEditingController();
   List<Map<String, dynamic>> filteredServices = [];
 
-  // Dummy data for top picks
   final List<Map<String, dynamic>> topPicksArr = [
     {
       "name": "Cleaning",
@@ -30,17 +29,16 @@ class _ServicesPageState extends State<ServicesPage> {
     },
     {
       "name": "Baby Sitting",
-      "img": "assets/img/baby.jpg",
+      "img": "assets/img/baby2.jpeg",
       "page": const BabySittingScreen(),
     },
     {
       "name": "Apartment Finishing",
-      "img": "assets/img/s3.jpg",
+      "img": "assets/img/recommend.jpeg",
       "page": const HomeFinishing(),
     },
   ];
 
-  // Dummy data for all services
   final List<Map<String, dynamic>> services = [
     {'name': 'Plumbing', 'icon': Icons.plumbing, 'page': const PlumbingScreen()},
     {'name': 'Electrical', 'icon': Icons.electrical_services, 'page': const ElectricalScreen()},
@@ -48,7 +46,7 @@ class _ServicesPageState extends State<ServicesPage> {
     {'name': 'Carpentry', 'icon': Icons.construction, 'page': const CarpentryScreen()},
     {'name': 'Painting', 'icon': Icons.brush, 'page': const PaintingScreen()},
     {'name': 'Babysitting', 'icon': Icons.baby_changing_station, 'page': const BabySittingScreen()},
-    {'name': 'Apartment Finishing', 'icon': Icons.home, 'page': const HomeFinishing()},
+   // {'name': 'Home Finishing', 'icon': Icons.home, 'page': const HomeFinishing()},
   ];
 
   @override
@@ -96,7 +94,6 @@ class _ServicesPageState extends State<ServicesPage> {
                 Column(
                   children: [
                     SizedBox(height: media.width * 0.1),
-
                     // Top bar
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -108,23 +105,19 @@ class _ServicesPageState extends State<ServicesPage> {
                               onPressed: () => Scaffold.of(context).openDrawer(),
                             ),
                           ),
-                          const SizedBox(width: 4),
                           Expanded(
-                            child: Center(
-                              child: Text(
-                                "Recommended Services",
-                                style: TextStyle(
-                                  color: Theme.of(context).colorScheme.surface,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w700,
-                                ),
+                            child: Text(
+                              "Recommended Services",
+                              style: TextStyle(
+                                color: Theme.of(context).colorScheme.surface,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w700,
                               ),
                             ),
                           ),
                         ],
                       ),
                     ),
-
                     // Search Bar
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
@@ -144,7 +137,6 @@ class _ServicesPageState extends State<ServicesPage> {
                         onChanged: _filterServices,
                       ),
                     ),
-
                     // Search Results
                     if (filteredServices.isNotEmpty)
                       Padding(
@@ -172,7 +164,6 @@ class _ServicesPageState extends State<ServicesPage> {
                           },
                         ),
                       ),
-
                     // Carousel
                     SizedBox(
                       width: media.width,
@@ -200,49 +191,69 @@ class _ServicesPageState extends State<ServicesPage> {
                         ),
                       ),
                     ),
-
-                    const Padding(
-                      padding: EdgeInsets.only(left: 16.0, top: 8),
+                    // "Book a Service" Header
+                    Padding(
+                      padding: const EdgeInsets.only(left: 16.0, top: 18, bottom: 10),
                       child: Text(
                         "Book a Service",
                         style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w700,
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).colorScheme.primary,
                         ),
                       ),
                     ),
-
+                    // Updated Book Service Section as Grid
                     Padding(
-                      padding: const EdgeInsets.all(12.0),
-                      child: ListView.builder(
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      child: GridView.builder(
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
                         itemCount: services.length,
+                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          crossAxisSpacing: 12,
+                          mainAxisSpacing: 12,
+                          childAspectRatio: 3 / 2,
+                        ),
                         itemBuilder: (context, index) {
                           final service = services[index];
-                          return Card(
-                            elevation: 4,
-                            margin: const EdgeInsets.symmetric(vertical: 8.0),
-                            child: ListTile(
-                              leading: Icon(
-                                service['icon'],
-                                size: 40,
-                                color: Theme.of(context).colorScheme.primary,
+                          return GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (_) => service['page']),
+                              );
+                            },
+                            child: Card(
+                              elevation: 4,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(16),
                               ),
-                              title: Text(
-                                service['name'],
-                                style: const TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      service['icon'],
+                                      size: 35,
+                                      color: Theme.of(context).colorScheme.primary,
+                                    ),
+                                    const SizedBox(height: 8),
+                                    Text(
+                                      service['name'],
+                                      textAlign: TextAlign.center,
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 14,
+                                      ),
+                                    ),
+                                   const SizedBox(height: 10)
+
+                                  ],
                                 ),
                               ),
-                              trailing: const Icon(Icons.arrow_forward_ios),
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(builder: (_) => service['page']),
-                                );
-                              },
                             ),
                           );
                         },

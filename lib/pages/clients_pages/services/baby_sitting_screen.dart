@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_utils/get_utils.dart';
 import 'package:handy_home2/pages/clients_pages/booking_pages/General_booking_calender.dart';
 //import 'package:handy_home2/pages/clients_pages/booking_pages/worker_booking_calender.dart';
 import 'package:handy_home2/pages/clients_pages/services_workers/babysitter_workers_page.dart';
@@ -99,9 +100,9 @@ void _fetchServiceData() async {
     showDialog(
     context: context,
     builder: (_) => AlertDialog(
-      title: const Text("Choose Worker"),
-      content: const Text(
-        "Do you want to choose the babysitter yourself?",
+      title:  Text("choose_worker".tr),
+      content:  Text(
+        "choose_worker_question".tr,
       ),
       actions: [
         TextButton(
@@ -118,7 +119,7 @@ void _fetchServiceData() async {
               ),
             );
           },
-          child: const Text("Yes"),
+          child: Text("yes".tr),
         ),
         TextButton(
           onPressed: () {
@@ -135,7 +136,7 @@ void _fetchServiceData() async {
               ),
             );
           },
-          child: const Text("No"),
+          child: Text("no".tr),
         ),
       ],
     ),
@@ -148,11 +149,15 @@ void _fetchServiceData() async {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.surface,
-        title: const Text("Baby Sitter Page"),
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        title: Text(
+          "babysitting_service".tr,
+          style: TextStyle(
+              fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
+        ),
         leading: IconButton(
           onPressed: () => Navigator.pop(context),
-          icon: const Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back, color: Colors.white, size: 30),
         ),
       ),
       body: SingleChildScrollView(
@@ -165,13 +170,13 @@ void _fetchServiceData() async {
                 height: screenHeight * 0.35,
                 width: double.infinity,
                 child: Image.asset(
-                  'assets/img/b1.jpeg',
+                  'assets/img/baby3.png',
                   fit: BoxFit.cover,
                 ),
               ),
               const SizedBox(height: 16),
-              const Text(
-                "About the Service",
+               Text(
+                "about_service".tr,
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 10),
@@ -182,8 +187,8 @@ void _fetchServiceData() async {
                           const SizedBox(height: 16),
 
               // Age Group Dropdown
-              const Text(
-                "Select Age Group:",
+               Text(
+                "select_age_group".tr,
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
               ),
               DropdownButton<String>(
@@ -203,8 +208,8 @@ void _fetchServiceData() async {
               const SizedBox(height: 16),
 
               // Number of Kids
-              const Text(
-                "Number of Kids:",
+               Text(
+                "number_of_kids".tr,
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
               ),
               Row(
@@ -249,7 +254,7 @@ void _fetchServiceData() async {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text("Select age for Kid ${index + 1}:"),
+                          Text('select_age_for_kid ${index + 1}:'.tr),
                           DropdownButton<String>(
                             value: kidAges[index],
                             onChanged: (value) {
@@ -272,8 +277,8 @@ void _fetchServiceData() async {
               const SizedBox(height: 16),
 
               // Number of Hours
-              const Text(
-                "Number of Hours:",
+               Text(
+                "number_of_hours".tr,
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
               ),
               Row(
@@ -308,7 +313,7 @@ void _fetchServiceData() async {
 
               // Price Display
               Text(
-                "💰 Estimated Total: ${getPrice().toStringAsFixed(0)} EGP",
+                " total_price ${getPrice().toStringAsFixed(0)} EGP".tr,
                 style: const TextStyle(
                     fontSize: 18, fontWeight: FontWeight.bold),
               ),
