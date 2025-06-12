@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_utils/get_utils.dart';
 
 class ClientProfilePage extends StatelessWidget {
   final String name;
@@ -82,8 +83,8 @@ class ClientProfilePage extends StatelessWidget {
                         borderRadius: BorderRadius.circular(10),
                       ),
                     ),
-                    child: const Text(
-                      "Edit Profile",
+                    child: Text(
+                      "done".tr,
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: 16,

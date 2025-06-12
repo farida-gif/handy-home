@@ -52,9 +52,9 @@ class _CarpentryWorkersPageState extends State<CarpentryWorkersPage> {
           await _repo.fetchWorkersForService('Carpentry');
 
       final imagePaths = [
-        'assets/img/pw1.png',
+        'assets/img/m1.jpeg',
         'assets/img/pw2.png',
-        'assets/img/pw3.png',
+        'assets/img/m5.jpeg',
         'assets/img/pw4.jpeg',
         'assets/img/pw5.png',
       ];

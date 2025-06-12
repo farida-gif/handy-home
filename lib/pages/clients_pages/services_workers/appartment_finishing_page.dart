@@ -50,7 +50,7 @@ class _AppartmentFinishingPageState extends State<AppartmentFinishingWorkers> {
           await _repo.fetchWorkersForService('Apartment Finishing');
 
       final imagePaths = [
-        'assets/img/pw1.png',
+        'assets/img/m3.jpeg',
         'assets/img/pw2.png',
         'assets/img/pw3.png',
         'assets/img/pw4.jpeg',

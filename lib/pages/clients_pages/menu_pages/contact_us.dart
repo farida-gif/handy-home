@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:get/get.dart';
 
 class ContactUsPage extends StatefulWidget {
   const ContactUsPage({super.key});
@@ -12,7 +12,7 @@ class ContactUsPage extends StatefulWidget {
 
 class _ContactUsPageState extends State<ContactUsPage> {
   final List<Map<String, dynamic>> messages = [
-    {"isUser": false, "text": "Hi! Please enter your name to begin."}
+    {"isUser": false, "text": "initial_bot_message".tr}
   ];
 
   final TextEditingController _chatController = TextEditingController();
@@ -30,7 +30,7 @@ class _ContactUsPageState extends State<ContactUsPage> {
       messages.add({"isUser": true, "text": text});
     });
 
-   _chatController.clear();
+    _chatController.clear();
 
     if (_clientName == null) {
       _clientName = text;
@@ -112,11 +112,18 @@ class _ContactUsPageState extends State<ContactUsPage> {
     final theme = Theme.of(context);
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text("contact_support".tr),
-        backgroundColor: theme.colorScheme.primary,
-        foregroundColor: Colors.white,
+       appBar: AppBar(
+    iconTheme: const IconThemeData(color: Colors.white),
+    title: Text(
+      'contact_us'.tr,
+      style: const TextStyle(
+        color: Colors.white,
+        fontWeight: FontWeight.bold,
+        fontSize: 20,
       ),
+    ),
+    backgroundColor: Theme.of(context).colorScheme.primary,
+  ),     
       body: Column(
         children: [
           Container(

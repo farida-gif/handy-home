@@ -7,6 +7,7 @@ import 'package:handy_home2/pages/clients_pages/menu_pages/client_settings.dart'
 import 'package:handy_home2/pages/clients_pages/menu_pages/contact_us.dart';
 import 'package:handy_home2/pages/clients_pages/menu_pages/feedback_page.dart';
 import 'package:handy_home2/pages/clients_pages/services_page.dart'; // Make sure this is correct
+import 'package:get/get.dart';
 
 class ClientDrawer extends StatelessWidget {
   const ClientDrawer({super.key});
@@ -28,23 +29,23 @@ class ClientDrawer extends StatelessWidget {
           DrawerHeader(
             decoration: BoxDecoration(color: Theme.of(context).colorScheme.primary),
             child: Text(
-              'Menu',
+              'menu'.tr,
               style: TextStyle(color: Theme.of(context).colorScheme.surface, fontSize: 40),
             ),
           ),
           ListTile(
             leading: Icon(Icons.construction),
-            title: Text('Services Page'),
+            title: Text('services_page'.tr),
             onTap: () => navigateToPage(context, const ServicesPage()),
           ),
           ListTile(
             leading: Icon(Icons.settings),
-            title: Text('Settings'),
+            title: Text('settings'.tr),
             onTap: () => navigateToPage(context, const SettingsPage()),
           ),
           ListTile(
             leading: Icon(Icons.person),
-            title: Text('Profile'),
+            title: Text('profile'.tr),
             onTap: () => navigateToPage(
               context,
               EditClientProfilePage(
@@ -54,22 +55,22 @@ class ClientDrawer extends StatelessWidget {
           ),
           ListTile(
             leading: Icon(Icons.cases),
-            title: Text('Orders'),
+            title: Text('orders'.tr),
             onTap: () => navigateToPage(context, ClientOrdersPage()),
           ),
           ListTile(
           leading: Icon(Icons.feedback),
-          title: Text('Feedback'),
+          title: Text('feedback'.tr),
           onTap: () => navigateToPage(context, const FeedbackPage()),
           ),
           ListTile(
           leading: Icon(Icons.support_agent),
-          title: Text('Contact Us'),
+          title: Text('contact_us'.tr),
           onTap: () => navigateToPage(context, const ContactUsPage()),
          ),
           ListTile(
             leading: Icon(Icons.logout),
-            title: Text('Logout'),
+            title: Text('logout'.tr),
             onTap: () => navigateToPage(context, const LogoutPage()),
           ),
         ],

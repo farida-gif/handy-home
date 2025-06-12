@@ -135,8 +135,9 @@ class _ClientLoginPageState extends State<ClientLoginPage> {
 
               RoundButton(title: "login".tr, onPressed: handleLogin),
               const SizedBox(height: 20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
                 children: [
                   Text("forgot_password_question".tr),
                   const SizedBox(width: 8),
@@ -151,6 +152,7 @@ class _ClientLoginPageState extends State<ClientLoginPage> {
                     ),
                   ),
                 ],
+              ),
               ),
               const SizedBox(height: 20),
               Row(

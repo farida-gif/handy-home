@@ -132,7 +132,7 @@ class _CleaningScreenState extends State<CleaningScreen> {
                       height: screenHeight * 0.4,
                       width: double.infinity,
                       child: Image.asset(
-                        'assets/img/paint.jpg',
+                        'assets/img/c9.png',
                         fit: BoxFit.cover,
                       ),
                     ),

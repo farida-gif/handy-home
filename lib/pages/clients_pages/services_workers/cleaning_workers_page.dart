@@ -51,10 +51,10 @@ final AvailableWorkersRepo _repo = AvailableWorkersRepo.instance;
     await _repo.fetchApprovedWorkersByService('Cleaning');
 
       final imagePaths = [
-        'assets/img/hk1.png',
-        'assets/img/hk2.png',
+        'assets/img/f1.jpeg',
+        'assets/img/f2.jpeg',
         'assets/img/hk3.png',
-        'assets/img/hk4.jpeg',
+        'assets/img/hk4.png',
         'assets/img/hk5.png',
       ];
 
